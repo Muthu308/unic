@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Profile Section - Arun Sundara Nayagam D</title>
+  <title>Arun Sundara Nayagam D - Profile & UNIC Academy</title>
   <style>
     body {
       margin: 0;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #0f3057; /* deep mind blue */
-      color: #e0f7fa; /* light cyan text */
+      background: #0f3057;
+      color: #e0f7fa;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
     a {
-      color: #5bc0de; /* peacock-ish blue */
+      color: #5bc0de;
       text-decoration: none;
     }
     a:hover {
       text-decoration: underline;
     }
     header, footer {
-      background: linear-gradient(135deg, #2a5368, #145374); /* peacock gradient */
+      background: linear-gradient(135deg, #2a5368, #145374);
       color: #b2dfdb;
       padding: 1rem 2rem;
       display: flex;
@@ -40,55 +40,52 @@
     header h1 {
       margin: 0;
       font-size: 1.6rem;
-      font-weight: 700;
     }
-    header p {
-      margin: 0;
-      font-size: 1rem;
-      color: #9be2e8;
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .tab {
+      padding: 0.7rem 1.5rem;
+      cursor: pointer;
+      background: #145374;
+      margin: 0 0.2rem;
+      border-radius: 5px 5px 0 0;
+      color: #b2dfdb;
+    }
+    .tab.active {
+      background: #5bc0de;
+      color: #0f3057;
+      font-weight: bold;
     }
     .container {
       max-width: 900px;
-      margin: 2rem auto;
+      margin: 0 auto;
       padding: 2rem 1rem;
-      background: linear-gradient(135deg, #2a5368, #145374); /* subtle peacock gradient */
-      border-radius: 8px;
+      background: linear-gradient(135deg, #2a5368, #145374);
+      border-radius: 0 0 8px 8px;
       box-shadow: 0 0 15px rgba(21, 83, 116, 0.7);
       flex-grow: 1;
     }
-    h2 {
-      color: #9be2e8; /* pale cyan */
-      text-align: center;
-      margin-bottom: 2rem;
-      font-weight: 700;
-    }
-    h4 {
-      color: #6dd5fa; /* lighter mind blue */
-      margin-top: 2rem;
-      font-weight: 600;
-      border-bottom: 2px solid #5bc0de;
-      padding-bottom: 0.3rem;
+    h2, h4 {
+      color: #9be2e8;
     }
     ul {
       list-style-type: disc;
       margin-left: 1.5rem;
-      line-height: 1.5;
-    }
-    p, li {
-      font-size: 1rem;
-      line-height: 1.5;
     }
     .text-muted {
       color: #a1cbe6;
-      margin-top: 3rem;
       text-align: center;
       font-style: italic;
-      font-size: 0.9rem;
+      margin-top: 2rem;
     }
     footer {
       text-align: center;
       font-size: 0.9rem;
       margin-top: auto;
+      padding: 1rem;
     }
   </style>
 </head>
@@ -102,138 +99,195 @@
       </div>
     </header>
 
-    <!-- Profile Section -->
-    <section id="profile">
-      <div class="container">
-        <h2>Profile of {{ profile.name }}</h2>
-        <p><strong>{{ profile.title }}</strong></p>
-        <p>
-          <strong>📍</strong> {{ profile.location }}<br />
-          <strong>📧</strong>
-          <a :href="'mailto:' + profile.email" target="_blank" rel="noopener">{{ profile.email }}</a> |
-          <strong>📞</strong> {{ profile.phone }}
-        </p>
-        <p>
-          <strong>🎥 YouTube:</strong>
-          <a :href="profile.youtube" target="_blank" rel="noopener">Arun’s Idea</a>
-        </p>
+    <div class="tabs">
+      <div class="tab" :class="{ active: currentTab === 'profile' }" @click="currentTab = 'profile'">Profile</div>
+      <div class="tab" :class="{ active: currentTab === 'academy' }" @click="currentTab = 'academy'">UNIC Academy</div>
+    </div>
 
-        <h4>🎯 Objective</h4>
-        <p>{{ profile.objective }}</p>
+    <div class="container" v-if="currentTab === 'profile'">
+      <h2>Profile of {{ profile.name }}</h2>
+      <p><strong>{{ profile.title }}</strong></p>
+      <p>
+        📍 {{ profile.location }}<br />
+        📧 <a :href="'mailto:' + profile.email">{{ profile.email }}</a> |
+        📞 {{ profile.phone }}
+      </p>
+      <p>
+        🎥 YouTube: <a :href="profile.youtube" target="_blank">Arun’s Idea</a>
+      </p>
 
-        <h4>🎓 Education</h4>
-        <ul>
-          <li v-for="e in profile.education" :key="e">{{ e }}</li>
-        </ul>
+      <h4>🎯 Objective</h4>
+      <p>{{ profile.objective }}</p>
 
-        <h4>🛠️ Skills</h4>
-        <ul>
-          <li><strong>Software:</strong> {{ profile.skills.software.join(", ") }}</li>
-          <li><strong>Languages:</strong> {{ profile.skills.languages.join(", ") }}</li>
-          <li><strong>Documentation Tools:</strong> {{ profile.skills.tools.join(", ") }}</li>
-        </ul>
+      <h4>🎓 Education</h4>
+      <ul>
+        <li v-for="e in profile.education" :key="e">{{ e }}</li>
+      </ul>
 
-        <h4>👨‍🏫 Teaching Experience</h4>
-        <ul>
-          <li v-for="t in profile.teaching" :key="t">{{ t }}</li>
-        </ul>
+      <h4>🛠️ Skills</h4>
+      <ul>
+        <li><strong>Software:</strong> {{ profile.skills.software.join(", ") }}</li>
+        <li><strong>Languages:</strong> {{ profile.skills.languages.join(", ") }}</li>
+        <li><strong>Tools:</strong> {{ profile.skills.tools.join(", ") }}</li>
+      </ul>
 
-        <h4>📚 Freelance Coaching</h4>
-        <ul>
-          <li v-for="f in profile.freelancing" :key="f">{{ f }}</li>
-        </ul>
+      <h4>👨‍🏫 Teaching Experience</h4>
+      <ul>
+        <li v-for="t in profile.teaching" :key="t">{{ t }}</li>
+      </ul>
 
-        <h4>🏅 Achievements</h4>
-        <ul>
-          <li v-for="a in profile.achievements" :key="a">{{ a }}</li>
-        </ul>
+      <h4>📚 Freelance Coaching</h4>
+      <ul>
+        <li v-for="f in profile.freelancing" :key="f">{{ f }}</li>
+      </ul>
 
-        <h4>📜 Certifications</h4>
-        <ul>
-          <li v-for="c in profile.certifications" :key="c">{{ c }}</li>
-        </ul>
+      <h4>🏅 Achievements</h4>
+      <ul>
+        <li v-for="a in profile.achievements" :key="a">{{ a }}</li>
+      </ul>
 
-        <h4>🚀 UNIC Academy</h4>
-        <p>{{ profile.startup }}</p>
+      <h4>📜 Certifications</h4>
+      <ul>
+        <li v-for="c in profile.certifications" :key="c">{{ c }}</li>
+      </ul>
 
-        <h4>🎥 YouTube Outreach</h4>
-        <p>{{ profile.youtubeDesc }}</p>
+      <h4>🚀 UNIC Academy</h4>
+      <p>{{ profile.startup }}</p>
 
-        <h5 class="text-muted">
-          📍 {{ profile.declaration.place }} | 🗓️ {{ profile.declaration.date }}
-        </h5>
+      <h4>🎥 YouTube Outreach</h4>
+      <p>{{ profile.youtubeDesc }}</p>
+
+      <div class="text-muted">
+        📍 {{ profile.declaration.place }} | 🗓️ {{ profile.declaration.date }}
       </div>
-    </section>
+    </div>
 
-    <footer>
-      &copy; 2025 Arun Sundara Nayagam D — All rights reserved.
-    </footer>
+    <div class="container" v-if="currentTab === 'academy'">
+      <h2>🎓 Journey of UNIC Academy</h2>
+      <p>{{ academy.journey }}</p>
+
+      <h4>💼 Services at UNIC</h4>
+      <ul>
+        <li v-for="s in academy.services" :key="s">{{ s }}</li>
+      </ul>
+
+      <h4>🌐 Mode of Classes</h4>
+      <p>{{ academy.mode }}</p>
+
+      <h4>🌟 Vision</h4>
+      <p>{{ academy.vision }}</p>
+
+      <h4>🎯 Mission</h4>
+      <ul>
+        <li v-for="m in academy.mission" :key="m">{{ m }}</li>
+      </ul>
+
+      <h4>🔍 What’s Unique at UNIC?</h4>
+      <ul>
+        <li v-for="u in academy.unique" :key="u">{{ u }}</li>
+      </ul>
+
+      <h4>🏆 Achievements</h4>
+      <ul>
+        <li v-for="a in academy.achievements" :key="a">{{ a }}</li>
+      </ul>
+
+      <h4>🎓 Classes Handled</h4>
+      <ul>
+        <li v-for="c in academy.classes" :key="c">{{ c }}</li>
+      </ul>
+
+      <h4>📺 YouTube Channel Info</h4>
+      <p>{{ academy.youtube }}</p>
+
+      <h4>🎁 Scholarship Scheme</h4>
+      <p>{{ academy.scholarship }}</p>
+    </div>
+
+    <footer>&copy; 2025 Arun Sundara Nayagam D — All rights reserved.</footer>
   </div>
 
-  <!-- Vue 3 CDN -->
+  <!-- Vue CDN -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <script>
     const { createApp } = Vue;
-
     createApp({
       data() {
         return {
+          currentTab: 'profile',
           profile: {
-            photo: "https://yt3.googleusercontent.com/4zz5DZpTwnglUebmPAPF4jet3mYSqqBlfZ5ecE0MQH-StzY0cUziqxE8syW5Zz0TUVY1jOTE5A=s120-c-k-c0x00ffffff-no-rj", // replace this URL with your real photo URL
+            photo: "https://yt3.googleusercontent.com/4zz5DZpTwnglUebmPAPF4jet3mYSqqBlfZ5ecE0MQH-StzY0cUziqxE8syW5Zz0TUVY1jOTE5A=s120-c-k-c0x00ffffff-no-rj",
             name: "Arun Sundara Nayagam D",
-            title:
-              "Educationist | Lecturer in Engineering, Math, and Science | Researcher | Founder of UNIC Academy",
+            title: "Educationist | Lecturer | Researcher | Founder of UNIC Academy",
             location: "Tirunelveli, Tamil Nadu, India",
             email: "davidarun112@gmail.com",
             phone: "+91 90034 09796",
             youtube: "https://www.youtube.com/@arunsidea6897",
-            objective:
-              "To lead the organization into excellence through dedicated hard work and innovative ideas in this dynamic environment.",
+            objective: "To lead the organization into excellence through dedicated hard work and innovative ideas in this dynamic environment.",
             education: [
-              "Ph.D. (Present) – Ocean Engineering, IIT Madras",
-              "M.E. Engineering Design (2012) – CEG, Anna University (CGPA: 6.9/10)",
-              "B.E. Mechanical Engineering (2009) – Noorul Islam College (76%)",
-              "Higher Secondary (2005) – Cathedral HSS, Tirunelveli (Maths-Biology, 82%) – 100% in Mathematics",
+              "Ph.D. – Ocean Engineering, IIT Madras (Pursuing)",
+              "M.E. Engineering Design – CEG, Anna University",
+              "B.E. Mechanical Engineering – Noorul Islam College",
+              "Higher Secondary – Cathedral HSS, Tirunelveli"
             ],
             skills: {
               software: ["AutoCAD", "ProE", "ANSYS"],
               languages: ["Fortran", "Python", "MATLAB"],
-              tools: ["MS Word", "PowerPoint", "Excel", "LaTeX", "Beamer"],
+              tools: ["MS Word", "PowerPoint", "Excel", "LaTeX", "Beamer"]
             },
             teaching: [
-              "Super 40 (Chennai) – JEE Physics, Maths, Chemistry",
-              "VV College – Thermodynamics, Kinematics, Manufacturing Tech",
-              "NIT Trichy – Engineering Mechanics, Vibrations",
-              "Thamirabarani College – Thermodynamics, Mechanics",
-              "FX Engineering – Civil/Mech Basics, Mechanics",
-              "MIT Chennai – GATE Math, Strength of Materials",
+              "Super 40 – JEE",
+              "VV College – Engineering Subjects",
+              "NIT Trichy – Engineering Mechanics",
+              "MIT – GATE Math",
+              "Others..."
             ],
-            freelancing: [
-              "Shankar Medico Academy – Physics, Chemistry (NEET)",
-              "Concept Tree – NEET/JEE Physics, Maths",
-              "Achieva – IIT JAM, NEET Physics/Maths",
-              "TIMES, GATE Forum, Friends Academy – GATE Mechanical subjects",
+            freelancing: ["Shankar Medico Academy", "Concept Tree", "Achieva", "GATE Forum"],
+            achievements: ["GATE Qualified 2011–2024", "AIR 12 in GATE 2022", "IIT JAM Physics 2018 & 2019"],
+            certifications: ["MITx – Mechanical Behaviour of Materials", "MITx – Mechanics: Kinematics and Dynamics"],
+            startup: "UNIC Academy started with 4 students in 2012. Now helped over 1000+ students for GATE, IIT JAM, NEET, and JEE.",
+            youtubeDesc: "Over 900 free videos in Tamil/English on 'UNIC Academy' and 'Arun’s Idea'.",
+            declaration: { date: "May 14, 2025", place: "Tirunelveli" }
+          },
+          academy: {
+            journey: "Started on Navarathiri 2013 with 4 students in Tirunelveli. Grew to train GATE, JAM, JEE & NEET aspirants, helping 1000+ students.",
+            services: [
+              "GATE: AE, ME, CE, EE, MT, PI",
+              "IIT JAM: Physics, Mathematics",
+              "IIT JEE, NEET"
+            ],
+            mode: "Online and Offline",
+            vision: "To impart global-standard knowledge to educators with moral values that empower their lives and careers.",
+            mission: [
+              "Provide knowledge and confidence via competitive exam training.",
+              "Outcome-based education with employability focus.",
+              "Platform for continuous learning and trend adaptation."
+            ],
+            unique: [
+              "Faculty from IIT, NIT and top institutes",
+              "Personal care & mentorship",
+              "Periodic evaluations",
+              "World-class content from basics to advanced",
+              "Numerical shortcuts and PYQ practice",
+              "Timely syllabus completion"
             ],
             achievements: [
-              "GATE Qualified: 2011–2024 in ME, AE, XE",
-              "AIR 12 – GATE 2022 (Naval Architecture)",
-              "IIT JAM Physics – 2018, 2019",
+              "Kathir – M.Sc at NIT Trichy via JAM",
+              "Nandha Kumar – ME at Anna Univ (GATE rank 1 TANCA)",
+              "Gopinath – PhD at IIT Madras",
+              "Madasamy – Govt. Polytechnic Lecturer via TRB",
+              "Others: GATE clearances, JEE/NEET success"
             ],
-            certifications: [
-              "MITx – Mechanical Behaviour of Materials",
-              "MITx – Mechanics: Kinematics and Dynamics",
+            classes: [
+              "Govt. Schools (Dept of School Edu, TN)",
+              "MIT Chennai – GATE Aerospace",
+              "VIT & Saveetha Univ – GATE Mechanical via Scoregetter"
             ],
-            startup:
-              "UNIC Academy started in 2012 on Navarathiri with 4 students. It expanded from GATE coaching to IIT JAM, NEET, and JEE. Over 1000+ students have benefited, many placed in top institutes and industries.",
-            youtubeDesc:
-              "900+ free videos in Tamil/English through 'UNIC Academy' and 'Arun’s Idea' to promote quality learning.",
-            declaration: {
-              date: "May 14, 2025",
-              place: "Tirunelveli, Tamil Nadu",
-            },
-          },
+            youtube: "Goal: Reach 1 lakh videos on education via 'Arun's Idea' and 'UNIC Academy'. 350+ videos so far in Tamil/English.",
+            scholarship: "Scholarships offered based on merit, motivation, and need."
+          }
         };
-      },
+      }
     }).mount("#app");
   </script>
 </body>
