@@ -99,9 +99,9 @@
       </div>
     </header>
 
-    <div class="tabs">
-      <div class="tab" :class="{ active: currentTab === 'profile' }" @click="currentTab = 'profile'">Profile</div>
+    <div class="tabs">     
       <div class="tab" :class="{ active: currentTab === 'academy' }" @click="currentTab = 'academy'">UNIC Academy</div>
+       <div class="tab" :class="{ active: currentTab === 'profile' }" @click="currentTab = 'profile'">Profile</div>
     </div>
 
     <div class="container" v-if="currentTab === 'profile'">
