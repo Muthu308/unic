@@ -104,8 +104,50 @@
        <div class="tab" :class="{ active: currentTab === 'profile' }" @click="currentTab = 'profile'">Profile</div>
     </div>
 
+    <div class="container" v-if="currentTab === 'academy'">
+      <h2>🎓 Journey of UNIC Academy</h2>
+      <p>{{ academy.journey }}</p>
+
+      <h4>💼 Services at UNIC</h4>
+      <ul>
+        <li v-for="s in academy.services" :key="s">{{ s }}</li>
+      </ul>
+
+      <h4>🌐 Mode of Classes</h4>
+      <p>{{ academy.mode }}</p>
+
+      <h4>🌟 Vision</h4>
+      <p>{{ academy.vision }}</p>
+
+      <h4>🎯 Mission</h4>
+      <ul>
+        <li v-for="m in academy.mission" :key="m">{{ m }}</li>
+      </ul>
+
+      <h4>🔍 What’s Unique at UNIC?</h4>
+      <ul>
+        <li v-for="u in academy.unique" :key="u">{{ u }}</li>
+      </ul>
+
+      <h4>🏆 Achievements</h4>
+      <ul>
+        <li v-for="a in academy.achievements" :key="a">{{ a }}</li>
+      </ul>
+
+      <h4>🎓 Classes Handled</h4>
+      <ul>
+        <li v-for="c in academy.classes" :key="c">{{ c }}</li>
+      </ul>
+
+      <h4>📺 YouTube Channel Info</h4>
+      <p>{{ academy.youtube }}</p>
+
+      <h4>🎁 Scholarship Scheme</h4>
+      <p>{{ academy.scholarship }}</p>
+    </div>
+
     <div class="container" v-if="currentTab === 'profile'">
-      <h2>Profile of {{ profile.name }}</h2>
+      <h2>Know your chief mentor {{ profile.name }}</h2>
       <p><strong>{{ profile.title }}</strong></p>
       <p>
         📍 {{ profile.location }}<br />
@@ -162,47 +204,7 @@
       </div>
     </div>
 
-    <div class="container" v-if="currentTab === 'academy'">
-      <h2>🎓 Journey of UNIC Academy</h2>
-      <p>{{ academy.journey }}</p>
-
-      <h4>💼 Services at UNIC</h4>
-      <ul>
-        <li v-for="s in academy.services" :key="s">{{ s }}</li>
-      </ul>
-
-      <h4>🌐 Mode of Classes</h4>
-      <p>{{ academy.mode }}</p>
-
-      <h4>🌟 Vision</h4>
-      <p>{{ academy.vision }}</p>
-
-      <h4>🎯 Mission</h4>
-      <ul>
-        <li v-for="m in academy.mission" :key="m">{{ m }}</li>
-      </ul>
-
-      <h4>🔍 What’s Unique at UNIC?</h4>
-      <ul>
-        <li v-for="u in academy.unique" :key="u">{{ u }}</li>
-      </ul>
-
-      <h4>🏆 Achievements</h4>
-      <ul>
-        <li v-for="a in academy.achievements" :key="a">{{ a }}</li>
-      </ul>
-
-      <h4>🎓 Classes Handled</h4>
-      <ul>
-        <li v-for="c in academy.classes" :key="c">{{ c }}</li>
-      </ul>
-
-      <h4>📺 YouTube Channel Info</h4>
-      <p>{{ academy.youtube }}</p>
-
-      <h4>🎁 Scholarship Scheme</h4>
-      <p>{{ academy.scholarship }}</p>
-    </div>
+    
 
     <footer>&copy; 2025 Arun Sundara Nayagam D — All rights reserved.</footer>
   </div>
